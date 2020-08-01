@@ -7,16 +7,56 @@ user_signed_in = False
 current_user = []
 user = {}
 
-#to make a new TAG
-def make_new_tag(tag_name):    
+#to make a new SUB-TAG 
+def make_new_subtag(tag_name, subtag_name):
     global user_signed_in    
     if  user_signed_in == False:
         print('ALERT: -- User not logged in --')
     else:
         user = current_user[0]
-        tag_list = os.listdir((user_path+'\\'+user).encode('unicode_escape'))
+        if istag(tag_name):
+            if issubtag(tag_name, subtag_name):
+                print('SUBTAG already exists')
+            else:                
+                with open((user_path+'\\'+user+'\\'+tag_name+'\\'+subtag_name+'.txt').encode('unicode_escape'),'w') as f:
+                    f.write('')            
+                print('SUBTAG --'+subtag_name+'-- created')
+        else:
+            print('ALERT: TAG --'+tag_name+'-- does not exist')
 
-        if(tag_name in tag_list):
+
+#to see if sub tag exists or not
+def issubtag(tag_name, subtag_name):
+    global current_user
+    user = current_user[0]
+    subtag_list = os.listdir((user_path+'\\'+user+'\\'+tag_name).encode('unicode_escape'))
+    temp = list(map(bytes.decode, subtag_list))
+
+    if subtag_name+'.txt' in temp:
+        return True
+    else:
+        return False
+
+#to see if tag exists or not
+def istag(tag_name):
+    global current_user    
+    user = current_user[0]    
+    tag_list = os.listdir((user_path+'\\'+user).encode('unicode_escape'))
+    temp = list(map(bytes.decode, tag_list))    
+    if(tag_name in temp):
+        return True
+    else:
+        return False
+
+#to make a new TAG
+def make_new_tag(tag_name):    
+    global user_signed_in    
+    if  user_signed_in == False:
+        print('ALERT: -- User not logged in --')
+    else:        
+        user = current_user[0]
+        print(istag(tag_name))
+        if(istag(tag_name)):            
             print('Tag already exist')
         else:
             os.mkdir((user_path+'\\'+user+'\\'+tag_name).encode('unicode_escape'))
@@ -102,13 +142,12 @@ def main():
         with open(sys_path.encode('unicode_escape'),'w') as f:           
             f.write(str(user))
     
-    print(user_signed_in)
-    login('uv','1234')
-    print(user_signed_in)
-    print(current_user)
-    make_new_tag('mailed')
+    
+    login('uv','1234')        
+    make_new_subtag('mailed','g')
     logout()
-    print(user_signed_in)
+    
+    
 
 
 if __name__ == "__main__":
@@ -116,3 +155,4 @@ if __name__ == "__main__":
     #make_new_user
     #remove_user
     #make_new_tag
+    #make_new_subtag
