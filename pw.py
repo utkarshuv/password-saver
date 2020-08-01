@@ -1,4 +1,5 @@
 import os
+import shutil
 
 sys_path = 'C:\\uv_pw\\uv\\.sys_uv.txt'
 user_path = 'C:\\uv_pw\\users'
@@ -83,7 +84,7 @@ def remove_user(user_name):
     
     #if user exists        
     else:        
-            os.rmdir((user_path+'\\'+user_name).encode('unicode_escape'))
+            shutil.rmtree((user_path+'\\'+user_name).encode('unicode_escape'))
             get = get_user()
             users = get[1]
             users.pop(user_name)
@@ -143,9 +144,7 @@ def main():
             f.write(str(user))
     
     
-    login('uv','1234')        
-    make_new_subtag('mailed','g')
-    logout()
+    remove_user('uv')
     
     
 
