@@ -7,6 +7,21 @@ user_signed_in = False
 current_user = []
 user = {}
 
+#to make a new TAG
+def make_new_tag(tag_name):    
+    global user_signed_in    
+    if  user_signed_in == False:
+        print('ALERT: -- User not logged in --')
+    else:
+        user = current_user[0]
+        tag_list = os.listdir((user_path+'\\'+user).encode('unicode_escape'))
+
+        if(tag_name in tag_list):
+            print('Tag already exist')
+        else:
+            os.mkdir((user_path+'\\'+user+'\\'+tag_name).encode('unicode_escape'))
+            print('Tag --'+tag_name+'-- Created')
+
 #to make a new user
 def make_new_user(user_name, password):
     if not os.path.isdir((user_path+'\\'+user_name).encode('unicode_escape')):
@@ -53,6 +68,7 @@ def get_user():
 #user authentication
 def login(user_name, password):
     get = get_user()
+    global user_signed_in
 
     if get[0]:
         users = get[1]
@@ -64,15 +80,18 @@ def login(user_name, password):
             else:
                 if users[user_name] == password:
                     user_signed_in = True
-                    current_user.append(user_name)
-                    print(current_user)
+                    current_user.append(user_name)                    
                     print('login for User --'+user_name+'-- successfull')
                 else:
                     print('Either the User Name or the Password is wrong')
     else:
         print('ALERT -- NO Users exist')
 
-
+#logout
+def logout():
+    global user_signed_in
+    user_signed_in = False
+    current_user.clear()
 
 def main():
     
@@ -80,10 +99,20 @@ def main():
         os.mkdir(r'C:\uv_pw')
         os.mkdir(r'C:\uv_pw\uv')
         os.mkdir(r'C:\uv_pw\users')
-        with open(sys_path.encode('unicode_escape'),'w') as f:            
+        with open(sys_path.encode('unicode_escape'),'w') as f:           
             f.write(str(user))
     
-    remove_user('pv')
+    print(user_signed_in)
+    login('uv','1234')
+    print(user_signed_in)
+    print(current_user)
+    make_new_tag('mailed')
+    logout()
+    print(user_signed_in)
+
 
 if __name__ == "__main__":
     main()
+    #make_new_user
+    #remove_user
+    #make_new_tag
