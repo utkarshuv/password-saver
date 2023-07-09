@@ -5,13 +5,19 @@ import UserOperation as up
 
 
 class PasswordMain:
-
     user_signed_in = False
     current_user = []
     user = {}
 
     # user authentication
     def login(self, user_name, password):
+        """ login functionality
+
+        :param user_name: str
+            user-name for login
+        :param password: str
+            password for login
+        """
         get = up.get_user()
 
         if get[0]:
@@ -23,8 +29,8 @@ class PasswordMain:
                     print('Either the User Name or the Password is wrong')
                 else:
                     if users[user_name] == password:
-                        user_signed_in = True
-                        gp.current_user.append(user_name)
+                        self.user_signed_in = True
+                        self.current_user.append(user_name)
                         print('login for User --' + user_name + '-- successfull')
                     else:
                         print('Either the User Name or the Password is wrong')
@@ -33,8 +39,11 @@ class PasswordMain:
 
     # logout
     def logout(self):
-        gp.user_signed_in = False
-        gp.current_user.clear()
+        """ logout functionality
+        """
+        print('Logging out of ' + self.current_user[0])
+        self.user_signed_in = False
+        self.current_user.clear()
 
     def main(self):
         if not os.path.isfile(gp.sys_path):
@@ -42,13 +51,33 @@ class PasswordMain:
             os.mkdir(r'C:\uv_pw\uv')
             os.mkdir(r'C:\uv_pw\users')
             with open(gp.sys_path.encode('unicode_escape'), 'w') as f:
-                f.write(str(gp.user))
+                f.write(str(self.user))
+        print('---------------')
+        print('Welcome to UVPW')
+        print('---------------')
+
+        while True:
+            entered_keyword = input().split()
+            command = entered_keyword[0]
+            if command == "exit":
+                print('-------------------------------------------------')
+                print('Thank you for using the system.\nExiting now...')
+                print('-------------------------------------------------')
+                break
+            elif command == "login":
+                self.login(entered_keyword[1], entered_keyword[2])
+            elif command == "logout":
+                self.logout()
+            elif command == "mkuser":
+                up.make_new_user(entered_keyword[1], entered_keyword[2])
+            elif command == "rmuser":
+                up.remove_user(entered_keyword[1])
 
 
 if __name__ == "__main__":
     uvpw = PasswordMain()
-    # uv_pw.main()
-    up.remove_user("demo3")
+    uvpw.main()
+    # up.remove_user("demo3")
     # uv_pw.login("demo2", "demo2pw")
     # remove_user()
     # make_new_tag()
