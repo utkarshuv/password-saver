@@ -1,3 +1,4 @@
 # password-saver
 
-Right now just building a simple interface
+Tag: A category of passwords to save.
+Sub-Tag: A sub-category of passwords to save.
