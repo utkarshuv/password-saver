@@ -18,3 +18,6 @@ rmuser user_name
 "users" directory stores folder that belong to each user.
 
 "uv" directory stores credentials in a file in it.
+
+
+users/<user_folder>/<tag_folder>/<sub-tag-file>

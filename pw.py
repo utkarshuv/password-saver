@@ -77,6 +77,8 @@ class PasswordMain:
                 up.remove_user(entered_keyword[1])
             elif command == "mktag":
                 tagop.make_new_tag(entered_keyword[1], gp.user_path, self.user_signed_in, self.current_user)
+            elif command == "mksub":
+                tagop.make_new_subtag(entered_keyword[1], entered_keyword[2], self.user_signed_in, gp.user_path, self.current_user)
 
 
 if __name__ == "__main__":
