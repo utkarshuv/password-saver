@@ -13,3 +13,8 @@ logout
 mkuser user_name password
 
 rmuser user_name
+
+-----------------------------------------------------------------
+"users" directory stores folder that belong to each user.
+
+"uv" directory stores credentials in a file in it.
