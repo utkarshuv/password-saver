@@ -2,6 +2,7 @@ import os
 import GlobalProperties as gp
 # from UserOperation import get_user
 import UserOperation as up
+import TagOperation as tagop
 
 
 class PasswordMain:
@@ -46,6 +47,7 @@ class PasswordMain:
         self.current_user.clear()
 
     def main(self):
+        # If default directories do not exist.
         if not os.path.isfile(gp.sys_path):
             os.mkdir(r'C:\uv_pw')
             os.mkdir(r'C:\uv_pw\uv')
@@ -57,6 +59,7 @@ class PasswordMain:
         print('---------------')
 
         while True:
+            # split the entered line by " " into tokens.
             entered_keyword = input().split()
             command = entered_keyword[0]
             if command == "exit":
@@ -72,6 +75,8 @@ class PasswordMain:
                 up.make_new_user(entered_keyword[1], entered_keyword[2])
             elif command == "rmuser":
                 up.remove_user(entered_keyword[1])
+            elif command == "mktag":
+                tagop.make_new_tag(entered_keyword[1], gp.user_path, self.user_signed_in, self.current_user)
 
 
 if __name__ == "__main__":

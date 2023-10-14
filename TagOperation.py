@@ -90,7 +90,6 @@ def make_new_tag(tag_name, user_path, user_signed_in, current_user):
         print('ALERT: -- User not logged in --')
     else:
         user = current_user[0]
-        print(is_tag(tag_name, user_path, current_user))
         if is_tag(tag_name, user_path, current_user):
             print('Tag already exist')
         else:
