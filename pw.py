@@ -79,6 +79,13 @@ class PasswordMain:
                 tagop.make_new_tag(entered_keyword[1], gp.user_path, self.user_signed_in, self.current_user)
             elif command == "mksub":
                 tagop.make_new_subtag(entered_keyword[1], entered_keyword[2], self.user_signed_in, gp.user_path, self.current_user)
+            elif command == "uvpw":
+                tag = entered_keyword[1]
+                sub_tag = entered_keyword[2]
+                if tagop.is_tag(tag, gp.user_path, self.current_user) and tagop.is_subtag(tag, sub_tag, gp.user_path, self.current_user):
+                    tagop.save_pw(entered_keyword[3], entered_keyword[4], self.current_user, tag, sub_tag)
+            else:
+                print('Could not recognize the command, use a command from the following list:\nto-do')
 
 
 if __name__ == "__main__":
