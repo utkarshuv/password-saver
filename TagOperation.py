@@ -1,5 +1,6 @@
 import os
-
+import GlobalProperties as gp
+import json
 
 def is_tag(tag_name, user_path, current_user) -> bool:
     """to check if the tag already exists or not
@@ -66,7 +67,7 @@ def make_new_subtag(tag_name, subtag_name, user_signed_in, user_path, current_us
             else:
                 with open((user_path + '\\' + user + '\\' + tag_name + '\\' + subtag_name + '.txt').encode(
                         'unicode_escape'), 'w') as f:
-                    f.write('')
+                    f.write('{}')
                 print('SUBTAG --' + subtag_name + '-- created')
         else:
             print('ALERT: TAG --' + tag_name + '-- does not exist')
@@ -95,3 +96,25 @@ def make_new_tag(tag_name, user_path, user_signed_in, current_user):
         else:
             os.mkdir((user_path + '\\' + user + '\\' + tag_name).encode('unicode_escape'))
             print('Tag --' + tag_name + '-- Created')
+
+
+def save_pw(username, password, user, tag_name, subtag_name):
+    try:
+        user_dict = {}
+        with open((gp.user_path + '\\' + user[0] + '\\' + tag_name + '\\' + subtag_name + '.txt').encode(
+                'unicode_escape'), 'r+') as f:
+
+            pw_str = f.read()
+            if pw_str != '{}':
+                # cannot convert a file to dictionary if single quotes are used for keys and values.
+                user_dict = json.loads(pw_str.replace('\'', '\"'))
+            else:
+                user_dict = json.loads(pw_str)
+            user_dict[username] = password
+            # to go to the beginning of the file.
+            f.seek(0)
+            f.write(str(user_dict))
+
+        print('Saved Successfully!')
+    except IOError:
+        print('Could not save Password')
