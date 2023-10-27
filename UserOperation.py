@@ -35,12 +35,17 @@ def remove_user(user_name):
         print('ALERT: User --' + user_name + '-- does not exist')
     # if user exists
     else:
-        shutil.rmtree((gp.user_path + '\\' + user_name).encode('unicode_escape'))
-        get = get_user()
-        users = get[1]
-        users.pop(user_name)
-        set_user(users)
-        print('REMOVED User --' + user_name + '--')
+        print("Please enter password for " + user_name)
+        password = input(user_name + "> ")
+        if get_user()[1][user_name] == password:
+            shutil.rmtree((gp.user_path + '\\' + user_name).encode('unicode_escape'))
+            get = get_user()
+            users = get[1]
+            users.pop(user_name)
+            set_user(users)
+            print('REMOVED User --' + user_name + '--')
+        else:
+            print('Wrong password for User: ' + user_name)
 
 
 def set_user(user_dict):
