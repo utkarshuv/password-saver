@@ -3,7 +3,7 @@ import GlobalProperties as gp
 # from UserOperation import get_user
 import UserOperation as up
 import TagOperation as tagop
-
+import fire
 
 class PasswordMain:
     user_signed_in = False
@@ -60,7 +60,7 @@ class PasswordMain:
 
         while True:
             # split the entered line by " " into tokens.
-            entered_keyword = input().split()
+            entered_keyword = input(">>").split()
             command = entered_keyword[0]
             if command == "exit":
                 print('-------------------------------------------------')
@@ -87,10 +87,12 @@ class PasswordMain:
             else:
                 print('Could not recognize the command, use a command from the following list:\nto-do')
 
-
-if __name__ == "__main__":
+def start():
     uvpw = PasswordMain()
     uvpw.main()
+
+if __name__ == "__main__":
+    fire.Fire()
     # up.remove_user("demo3")
     # uv_pw.login("demo2", "demo2pw")
     # remove_user()

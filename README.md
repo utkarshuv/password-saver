@@ -9,8 +9,9 @@ COMMAND LIST:
 - mksub tag_name sub_tag_name
 - uvpw tag_name sub_tag_name username password
 
+Note: to start use the following command -> python pw.py start
 ---
-Terms:
+Terminology:
 - Tag: A category of passwords to save.
 - Sub-Tag: A sub-category of passwords to save.
 
