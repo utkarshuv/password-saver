@@ -4,6 +4,7 @@ import GlobalProperties as gp
 import UserOperation as up
 import TagOperation as tagop
 import fire
+import utility as utili
 
 class PasswordMain:
     user_signed_in = False
@@ -84,8 +85,11 @@ class PasswordMain:
                 sub_tag = entered_keyword[2]
                 if tagop.is_tag(tag, gp.user_path, self.current_user) and tagop.is_subtag(tag, sub_tag, gp.user_path, self.current_user):
                     tagop.save_pw(entered_keyword[3], entered_keyword[4], self.current_user, tag, sub_tag)
+            elif command == "help":
+                utili.help_desk()
             else:
                 print('Could not recognize the command, use a command from the following list:\nto-do')
+
 
 def start():
     uvpw = PasswordMain()
